@@ -13,7 +13,7 @@ if (!$socket) {
 	echo "Get block: $block_count\r\n";
 	echo "Echo block to http\r\n";
 	fwrite($connect, $block_count);//"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n$block_count\r\n");
-	//fclose($connect);
+	fclose($connect);
 	}
 
 fclose($socket);
