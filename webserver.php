@@ -1,5 +1,5 @@
 #!/usr/bin/env php
-
+# from git with love
 <?php
 
 echo "Run script and open socket on :8999\r\n";
