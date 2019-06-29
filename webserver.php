@@ -1,11 +1,9 @@
 #!/usr/bin/env php
 
-<<<<<<< HEAD
-## from git with L0V3 !!! ##
-=======
-## from git with love !!! ##
->>>>>>> 06ce0cd72a57a8572a4c1f7bd9e1976c43862c52
 <?php
+
+// FROM B3Q WITH L0V3
+
 
 echo "Run script and open socket on :8999\r\n";
 $socket = stream_socket_server("tcp://0.0.0.0:8000", $errno, $errstr);
