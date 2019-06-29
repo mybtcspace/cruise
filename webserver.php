@@ -8,16 +8,23 @@
 echo "Run script and open socket on :8000\r\n";
 $socket = stream_socket_server("tcp://0.0.0.0:8000", $errno, $errstr);
 
-while ($socket) {
+if (!$socket) { 
 
+    die("$errstr ($errno)\n");
+} else {
+
+	echo "Begin socket listern:\r\n";
 
 	$connects = array();
 	
+	while (true) {
+	
+	echo "Run bc request...  ";
 	$read = $connects;
 	$read []= $socket;
 	$write = $except = null;
 	$block_count = shell_exec('bitcoin-cli -conf=/media/btc_bc/bitcoind/btc.conf getblockcount');
-	
+	echo ": $block_count";
 	
 	 if (!stream_select($read, $write, $except, null)) { //ожидаем сокеты доступные для чтения (таймаут нулл)
         break;
@@ -41,7 +48,7 @@ while ($socket) {
 
 
 }
-
+}
 	fclose($socket);
 	
 	/*
@@ -57,5 +64,4 @@ fclose($socket);
 */
 
 
-	echo ($errstr." ".$errno);
 ?>
