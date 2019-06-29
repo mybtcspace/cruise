@@ -1,6 +1,10 @@
 #!/usr/bin/env php
 
+<<<<<<< HEAD
 ## from git with L0V3 !!! ##
+=======
+## from git with love !!! ##
+>>>>>>> 06ce0cd72a57a8572a4c1f7bd9e1976c43862c52
 <?php
 
 echo "Run script and open socket on :8999\r\n";
@@ -10,12 +14,12 @@ if (!$socket) {
 	die("$errstr ($errno)\n");
 } else {
 
-	while ($connect = stream_socket_accept($socket, -1)) {
+	while ($connect = @stream_socket_accept($socket, -1)) {
 	$block_count = shell_exec('bitcoin-cli -conf=/media/btc_bc/bitcoind/btc.conf getblockcount');
 	echo "Get block: $block_count\r\n";
 	echo "Echo block to http\r\n";
 	fwrite($connect, $block_count);//"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n$block_count\r\n");
-	fclose($connect);
+	//fclose($connect);
 	}
 
 fclose($socket);
