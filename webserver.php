@@ -2,7 +2,7 @@
 
 <?php
 
-// FROM B3Q WITH L0V3
+// FROM B3Q WITH L0V3 SSH
 
 
 echo "Run script and open socket on :8999\r\n";
