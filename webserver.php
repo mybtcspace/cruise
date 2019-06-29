@@ -57,5 +57,5 @@ fclose($socket);
 */
 
 
-	echo ($errstr\n$errno");
+	echo ($errstr." ".$errno);
 ?>
