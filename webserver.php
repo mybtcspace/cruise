@@ -1,4 +1,6 @@
 #!/usr/bin/env php
+
+## from git with L0V3 !!! ##
 <?php
 
 echo "Run script and open socket on :8999\r\n";
@@ -17,5 +19,6 @@ if (!$socket) {
 	}
 
 fclose($socket);
+
 }
 ?>
