@@ -56,7 +56,7 @@ if (!$socket) {
 	$block_count = shell_exec('bitcoin-cli -conf=/media/btc_bc/bitcoind/btc.conf getblockcount');
 	echo "Get block: $block_count\r\n";
 	echo "Echo block to http\r\n";
-	fwrite($connect, $block_count);//"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n$block_count\r\n");
+	fwrite($connect, $block_count);//"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n$block_count");
 	fclose($connect);
 	}
 
