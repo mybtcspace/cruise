@@ -20,6 +20,7 @@ if (!$socket) {
 	while (true) {
 	
 	echo "Run bc request...  ";
+	
 	$read = $connects;
 	$read []= $socket;
 	$write = $except = null;
@@ -34,6 +35,7 @@ if (!$socket) {
     if (in_array($socket, $read)) { //есть новое соединение
         $connect = stream_socket_accept($socket, -1); //принимаем новое соединение
         $connects[] = $connect; //добавляем его в список необходимых для обработки
+		echo $read;
         unset($read[ array_search($socket, $read) ]);
     }
 
