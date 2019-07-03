@@ -43,8 +43,8 @@ if (!$socket) {
         while ($buffer = rtrim(fgets($connect))) {
             $headers .= $buffer;
         }
-		$get_request = $_GET[];
-		$str = trim($get_request);
+		$get_request = explode('/',$_SERVER['REQUEST_URI']);
+		$str = trim($get_request[1]);
 		$str = stripslashes($str);
 		$str = htmlspecialchars($str);
 		echo $str;
