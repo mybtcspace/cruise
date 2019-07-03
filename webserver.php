@@ -42,6 +42,7 @@ if (!$socket) {
         $headers = '';
         while ($buffer = rtrim(fgets($connect))) {
             $headers .= $buffer;
+			echo $headers.'\r\n';
         }
 		echo $headers;
         fwrite($connect, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: keep-alive\r\n\r\n$block_count\r\n");
