@@ -35,8 +35,7 @@ if (!$socket) {
     if (in_array($socket, $read)) { //есть новое соединение
         $connect = stream_socket_accept($socket, -1); //принимаем новое соединение
         $connects[] = $connect; //добавляем его в список необходимых для обработки
-		var_dump($read);
-        unset($read[ array_search($socket, $read) ]);
+		unset($read[ array_search($socket, $read) ]);
     }
 
     foreach($read as $connect) { //обрабатываем все соединения
@@ -44,6 +43,7 @@ if (!$socket) {
         while ($buffer = rtrim(fgets($connect))) {
             $headers .= $buffer;
         }
+		var_dump($headers);
         fwrite($connect, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: keep-alive\r\n\r\n$block_count\r\n");
         fclose($connect);
         unset($connects[ array_search($connect, $connects) ]);
