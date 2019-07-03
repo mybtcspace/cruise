@@ -23,7 +23,8 @@ if (!$socket) {
 	$read = $connects;
 	$read []= $socket;
 	$write = $except = null;
-	$block_count = shell_exec('bitcoin-cli -conf=/media/btc_bc/bitcoind/btc.conf getblockcount');
+	$block_count = shell_exec('bitcoin-cli getblockcount');
+	
 	echo ": $block_count";
 	
 	 if (!stream_select($read, $write, $except, null)) { //ожидаем сокеты доступные для чтения (таймаут нулл)
@@ -58,6 +59,12 @@ if (!$socket) {
 	echo "Echo block to http\r\n";
 	fwrite($connect, $block_count);//"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n$block_count");
 	fclose($connect);
+	}
+	
+	case 'xmr' {
+	$creds = (file_get_contents(DIR."/monero/1402/monero-wallet-rpc.18083.login"));
+	$answer = shell_exec("curl -u ".$creds." --digest -X POST http://127.0.0.1:18083/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"make_integrated_address","params":'"{\"payment_id\":\"70b31710874c29fe\"}"'}' -H 'Content-Type: application/json'
+	
 	}
 
 fclose($socket);
