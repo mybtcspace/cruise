@@ -43,11 +43,7 @@ if (!$socket) {
         while ($buffer = rtrim(fgets($connect))) {
             $headers .= $buffer;
         }
-		$get_request = explode('/',$_SERVER['REQUEST_URI']);
-		$str = trim($get_request[1]);
-		$str = stripslashes($str);
-		$str = htmlspecialchars($str);
-		echo $str;
+		echo $headers;
         fwrite($connect, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: keep-alive\r\n\r\n$block_count\r\n");
         fclose($connect);
         unset($connects[ array_search($connect, $connects) ]);
