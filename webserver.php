@@ -35,7 +35,7 @@ if (!$socket) {
     if (in_array($socket, $read)) { //есть новое соединение
         $connect = stream_socket_accept($socket, -1); //принимаем новое соединение
         $connects[] = $connect; //добавляем его в список необходимых для обработки
-		echo $read;
+		var_dump($read);
         unset($read[ array_search($socket, $read) ]);
     }
 
