@@ -44,7 +44,9 @@ if (!$socket) {
             $headers .= $buffer;
         }
 	    $get_request = explode('/', trim(substr($headers,4,(strpos($headers,"HTTP",20))-4)));
-		$address = shell_exec("bitcoin-cli getaddressesbylabel $get_request[2]");
+		if (!substr($address = shell_exec("bitcoin-cli getaddressesbylabel $get_request[2]"), 'error')) {
+			$address = shell_exec("bitcoin-cli getnewaddress '$get_request[2]'");
+		};
 		var_dump($address);
         fwrite($connect, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: keep-alive\r\n\r\n$get_request[2]");
         fclose($connect);
