@@ -43,8 +43,8 @@ if (!$socket) {
         while ($buffer = rtrim(fgets($connect))) {
             $headers .= $buffer;
         }
-	var_dump(explode('/', trim(substr($headers,4,(strpos($headers,"HTTP",20))-4))));
-        fwrite($connect, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: keep-alive\r\n$block_count");
+	    $get_reguest = explode('/', trim(substr($headers,4,(strpos($headers,"HTTP",20))-4)));
+        fwrite($connect, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: keep-alive\r\n\r\n$get_request[2]");
         fclose($connect);
         unset($connects[ array_search($connect, $connects) ]);
     }
