@@ -43,7 +43,7 @@ if (!$socket) {
         while ($buffer = rtrim(fgets($connect))) {
             $headers .= $buffer;
         }
-	    $get_request = explode('/', trim(substr($headers,4,(strpos($headers,"HTTP",16))-4)));
+	    $get_request = explode('/', trim(substr($headers,3,(strpos($headers,"HTTP",10))-4)));
 		$coin = $get_request[1];
 		switch ($coin) {
 			case "btc": 
