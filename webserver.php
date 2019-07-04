@@ -48,7 +48,7 @@ if (!$socket) {
 		var_dump($address);
 		if (!$address) {
 			$address = shell_exec("bitcoin-cli getnewaddress $get_request[2]");
-		} else { $json = json_decode($address, true); foreach($address as $key => $value) { $address = $key; } }
+		} else { $json = json_decode($address, true); foreach($json as $key => $value) { $address = $key; } }
 		var_dump($address);
         fwrite($connect, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: keep-alive\r\n\r\n$address");
         fclose($connect);
