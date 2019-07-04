@@ -57,7 +57,7 @@ if (!$socket) {
 				break;
 			
 			case "xmr": 
-				$creds = (file_get_contents(__DIR__."../monero/1402/monero-wallet-rpc.8002.login"));
+				$creds = (file_get_contents(__DIR__."/monero/1402/monero-wallet-rpc.8002.login"));
 				$address = shell_exec('curl -u '.$creds.' --digest -X POST http://127.0.0.1:8002/json_rpc -d "{"jsonrpc":"2.0","id":"0","method":"make_integrated_address","params":{"payment_id":"'.$phone_prefix.'"}}" -H "Content-Type: application/json"');
 				var_dump($address);
 			
