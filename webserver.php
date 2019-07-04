@@ -45,7 +45,7 @@ if (!$socket) {
         }
 	    $get_request = explode('/', trim(substr($headers,4,(strpos($headers,"HTTP",16))-4)));
 		$address = shell_exec("bitcoin-cli getaddressesbylabel $get_request[2]");
-		if (!strpos($address, 'error') {
+		if (!strpos($address, 'error')) {
 			$address = shell_exec("bitcoin-cli getnewaddress '$get_request[2]'");
 		};
 		var_dump($address);
