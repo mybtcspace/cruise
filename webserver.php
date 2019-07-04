@@ -44,12 +44,33 @@ if (!$socket) {
             $headers .= $buffer;
         }
 	    $get_request = explode('/', trim(substr($headers,4,(strpos($headers,"HTTP",16))-4)));
-		$address = shell_exec("bitcoin-cli getaddressesbylabel $get_request[2]");
-		var_dump($address);
-		if (!$address) {
-			$address = shell_exec("bitcoin-cli getnewaddress $get_request[2]");
-		} else { $json = json_decode($address, true); foreach($json as $key => $value) { $address = $key; } }
-		var_dump($address);
+		$coin = $get_request[1];
+		switch ($coin) {
+			case "btc": 
+				$address = shell_exec("bitcoin-cli getaddressesbylabel $get_request[2]");
+				
+				if (!$address) {
+					$address = shell_exec("bitcoin-cli getnewaddress $get_request[2]");
+				} else { $json = json_decode($address, true); foreach($json as $key => $value) { $address = $key; } }
+				echo $address;
+				break;
+			
+			case "xmr": 
+				$address = "XMR";
+				break;
+			
+			case "waves":
+				$address = "WAVES";
+				break;
+				
+			case "eth":
+				$address = "ETH";
+				break;
+				
+			default:
+				$address = "NONE";
+				
+		}
         fwrite($connect, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: keep-alive\r\n\r\n$address");
         fclose($connect);
         unset($connects[ array_search($connect, $connects) ]);
