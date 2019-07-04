@@ -45,11 +45,12 @@ if (!$socket) {
         }
 	    $get_request = explode('/', trim(substr($headers,4,(strpos($headers,"HTTP",16))-4)));
 		$address = shell_exec("bitcoin-cli getaddressesbylabel $get_request[2]");
-		if (strpos($address, 'error') === 0) {
-			$address = shell_exec("bitcoin-cli getnewaddress '$get_request[2]'");
-		};
 		var_dump($address);
-        fwrite($connect, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: keep-alive\r\n\r\n$get_request[2]");
+		if (strpos($address, 'error') === 0) {
+			$address = shell_exec('bitcoin-cli getnewaddress "'.$get_request[2].'"');
+		};
+		
+        fwrite($connect, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: keep-alive\r\n\r\n$address");
         fclose($connect);
         unset($connects[ array_search($connect, $connects) ]);
     }
