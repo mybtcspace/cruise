@@ -45,19 +45,21 @@ if (!$socket) {
         }
 	    $get_request = explode('/', trim(substr($headers,3,(strpos($headers,"HTTP",10))-4)));
 		$coin = $get_request[1];
+		$phone_prefix = $get_request[2];
 		switch ($coin) {
 			case "btc": 
-				$address = shell_exec("bitcoin-cli getaddressesbylabel $get_request[2]");
+				$address = shell_exec("bitcoin-cli getaddressesbylabel $phone_prefix");
 				
 				if (!$address) {
-					$address = shell_exec("bitcoin-cli getnewaddress $get_request[2]");
+					$address = shell_exec("bitcoin-cli getnewaddress $phone_prefix");
 				} else { $json = json_decode($address, true); foreach($json as $key => $value) { $address = $key; } }
-				echo $address;
+				echo trim($address);
 				break;
 			
 			case "xmr": 
-				$address = "XMR";
-				break;
+				$creds = (file_get_contents(DIR."/monero/1402/monero-wallet-rpc.8002.login"));
+				$address = shell_exec('curl -u '.$creds.' --digest -X POST http://127.0.0.1:8002/json_rpc -d "{"jsonrpc":"2.0","id":"0","method":"make_integrated_address","params":{"payment_id":"'.$phone_prefix.'"}}" -H "Content-Type: application/json"');
+				var_dump($address);
 			
 			case "waves":
 				$address = "WAVES";
