@@ -23,7 +23,7 @@ switch ($bc){
 		$json = 'default';
 }
 	
-	
+	var_dump($json);
 	file_put_contents($file,$json);
 	
 	
