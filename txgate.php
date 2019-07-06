@@ -17,7 +17,7 @@ switch ($bc){
 		if (array_key_exists('error', $json)) {$payment_id = 'error';} else {
 			$payment_id = $json;
 		}
-		break
+		break;
 	
 	default:
 		$json = 'default';
