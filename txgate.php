@@ -1,8 +1,8 @@
 <?php 
 
 //скрипт принимает данные из блокчейнов
-$bc = $argv[0];
-$txid = $argv[1];
+$bc = $argv[1];
+$txid = $argv[2];
 $file = 'cruise_txs.txt';
 switch ($bc){
 	
