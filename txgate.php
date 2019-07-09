@@ -3,7 +3,7 @@
 //скрипт принимает данные из блокчейнов
 $blockchain = $argv[1];
 $txid = $argv[2];
-$file = 'cruise_txs.txt';
+$file = '/home/rootuser/cruise_txs.txt';
 switch ($blockchain){
 	
 	case 'btc':
