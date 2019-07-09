@@ -30,7 +30,7 @@ switch ($blockchain){
 	var_dump($json);
 	if ($def) {
 		$uri = "http://ptback.mybtc.space/";
-		$invoice_request = "invoice_approve/$blockchain/$payment_id/$txid/$amount/$block_height";
+		$invoice_request = "invoices/approve/$blockchain/$payment_id/$txid/$amount/$block_height";
 		$shell_cmd = "curl -X GET --data key $uri.$invoice_request";
 		$curl_data = shell_exec($shell_cmd);
 		var_dump($curl_data);
