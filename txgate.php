@@ -1,10 +1,14 @@
 #!/usr/bin/php
 <?php 
 
-//скрипт принимает данные из блокчейнов
+//универсальный скрипт принимает данные из блокчейнов
+// параметрый передачи [имя блокчейна] [tx_hash]
 $blockchain = $argv[1];
 $txid = $argv[2];
+
+//добавляем данныйе в mongodb-like базу данных
 $file = '/home/rootuser/cruise_txs.txt';
+//свитчем выбираем апи работы с блокчейном
 switch ($blockchain){
 	
 	case 'btc':
@@ -37,6 +41,9 @@ switch ($blockchain){
 		var_dump($curl_data);
 		}
 	file_put_contents($file,"\r\n$invoice_request\r\n",FILE_APPEND);
+	
+	
+//скрипт построен на shell_exec, поэтому внимательно следим за каждой командой и входящими параметрами
 	
 	
 	
