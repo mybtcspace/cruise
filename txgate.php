@@ -19,7 +19,7 @@ switch ($blockchain){
 		if (array_key_exists('error', $json)) {$payment_id = 'error';} else {
 			$payment_id = $json['result']['transfer']['payment_id'];
 			$amount = $json['result']['transfer']['amount'];
-			$block_height = $json['result']['transfer']['confirmations'];
+			$block_height = $json['result']['transfer']['height'];
 		}
 		break;
 	
