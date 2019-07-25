@@ -35,7 +35,8 @@ switch ($blockchain){
 	var_dump($json);
 	if ($def) {
 		$uri = "http://ptback.mybtc.space/";
-		$invoice_request = "invoices/approve/$blockchain/$payment_id/$txid/$amount/$block_height";
+		$salt = md5($payment_id.$txid.$amount.'mybtc.space');
+		$invoice_request = "invoices/approve/$blockchain/$payment_id/$txid/$amount/$block_height/$salt";
 		$shell_cmd = "curl -X GET --data key $uri.$invoice_request";
 		$curl_data = shell_exec($shell_cmd);
 		var_dump($curl_data);
