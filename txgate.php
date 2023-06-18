@@ -7,7 +7,7 @@ $blockchain = $argv[1];
 $txid = $argv[2];
 
 //добавляем данныйе в mongodb-like базу данных
-$file = '/home/rootuser/cruise_txs.txt';
+$file = '/home/cruise_txs.txt';
 //свитчем выбираем апи работы с блокчейном
 switch ($blockchain){
 	
