@@ -3,7 +3,11 @@
 <?php
 
 // FROM B3Q WITH L0V3 SSH
+function clean_search_string( $s ) {
+    $s = preg_replace( "/[^a-zA-Z0-9\s]/", '', $s );
 
+    return $s;
+}
 
 echo "Run script and open socket on :8000\r\n";
 $socket = stream_socket_server("tcp://0.0.0.0:8000", $errno, $errstr);
@@ -44,8 +48,8 @@ if (!$socket) {
             $headers .= $buffer;
         }
 	    $get_request = explode('/', trim(substr($headers,3,(strpos($headers,"HTTP",10))-4)));
-		$coin = $get_request[1];
-		$phone_prefix = $get_request[2];
+		$coin = preg_replace( "/[^a-zA-Z0-9\s]/", '', htmlentities(strip_tags($get_request[1])));
+		$phone_prefix = preg_replace( "/[^a-zA-Z0-9\s]/", '',htmlentities(strip_tags($get_request[2])));
 		switch ($coin) {
 			case "btc": 
 				$address = shell_exec("bitcoin-cli getaddressesbylabel $phone_prefix");
