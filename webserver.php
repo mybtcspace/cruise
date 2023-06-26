@@ -80,7 +80,7 @@ if (!$socket) {
 	$read = $connects;
 	$read []= $socket;
 	$write = $except = null;
-	$block_count = shell_exec('bitcoin-cli getblockcount');
+	$block_count = btc_node('getblockcount',''); //shell_exec('bitcoin-cli getblockcount');
 	
 	echo ": $block_count";
 	
