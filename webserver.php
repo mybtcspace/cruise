@@ -1,8 +1,6 @@
 #!/usr/bin/env php
-// FROM B3Q WITH L0V3 SSH
-
 <?php
-
+// 4ROM B3Q WIZ L0V3 SSH
 $file = 'creds'; // creds for node
 $content = file_get_contents($file);
 if ($content === false) {
@@ -10,7 +8,7 @@ if ($content === false) {
     exit();
 }
 
-$creds = $content;
+$creds = explode(':', $content);
 
 function clean_search_string( $s ) {
     $s = preg_replace( "/[^a-zA-Z0-9\s]/", '', $s );
@@ -40,7 +38,8 @@ curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 curl_setopt($curl, CURLOPT_POST, true);
 curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
-curl_setopt($curl, CURLOPT_USERPWD, $creds);
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+curl_setopt($curl, CURLOPT_USERPWD, $creds[0].':'.$creds[1]);
 
 // Отправка запроса
 $response = curl_exec($curl);
