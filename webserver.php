@@ -18,7 +18,7 @@ function clean_search_string( $s ) {
     return $s;
 }
 
-function btc_node($method,$params) {
+function btc_node($method,$params, $creds) {
 	// URL JSON-RPC сервера
 	$url = 'http://127.0.0.1:8332';
 
@@ -90,7 +90,7 @@ if (!$socket) {
 	$read = $connects;
 	$read []= $socket;
 	$write = $except = null;
-	$block_count = btc_node('getblockcount',''); //shell_exec('bitcoin-cli getblockcount');
+	$block_count = btc_node('getblockcount','',$creds); //shell_exec('bitcoin-cli getblockcount');
 	
 	echo ": $block_count";
 	
@@ -115,7 +115,7 @@ if (!$socket) {
 		switch ($coin) {
 			case "btc": 
 				//$address = shell_exec("bitcoin-cli getaddressesbylabel $phone_prefix");
-				$address = btc_node('getnewaddress',$phone_prefix);
+				$address = btc_node('getnewaddress',$phone_prefix, $creds);
 				/*
 				if (!$address) {
 					//$address = shell_exec("bitcoin-cli getnewaddress $phone_prefix");
