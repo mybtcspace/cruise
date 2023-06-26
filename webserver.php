@@ -34,12 +34,23 @@ function btc_node($method,$params, $creds) {
 
 // Настройка cURL
 $curl = curl_init($url);
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	$options = array(
+            CURLOPT_HTTPAUTH       => CURLAUTH_BASIC,
+            CURLOPT_USERPWD        => $creds[0] . ':' . $creds[1],
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_MAXREDIRS      => 10,
+            CURLOPT_HTTPHEADER     => array('Content-type: application/json'),
+            CURLOPT_POST           => true,
+            CURLOPT_POSTFIELDS     => $request
+        );
+	curl_setopt_array($curl, $options);
+/*curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 curl_setopt($curl, CURLOPT_POST, true);
 curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-curl_setopt($curl, CURLOPT_USERPWD, $creds[0].':'.$creds[1]);
+curl_setopt($curl, CURLOPT_USERPWD, $creds[0].':'.$creds[1]); */
 
 // Отправка запроса
 $response = curl_exec($curl);
