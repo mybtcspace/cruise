@@ -125,11 +125,12 @@ if (!$socket) {
 		switch ($coin) {
 			case "btc": 
 				//$address = shell_exec("bitcoin-cli getaddressesbylabel $phone_prefix");
-				$address = btc_node('getnewaddress',$phone_prefix, $creds);
+				$address = btc_node('getnewaddress',[$phone_prefix], $creds);
 				/*
 				if (!$address) {
 					//$address = shell_exec("bitcoin-cli getnewaddress $phone_prefix");
 				} else { $json = json_decode($address, true); foreach($json as $key => $value) { $address = $key; } } */
+			
 				echo trim($address);
 				break;
 			
