@@ -9,6 +9,58 @@ function clean_search_string( $s ) {
     return $s;
 }
 
+function btc_node($method,$params) {
+	// URL JSON-RPC сервера
+	$url = 'http://127.0.0.1:8332';
+
+	// JSON-RPC метод и параметры
+	//$method = 'getaddressesbylabel';
+	//$params = $p; //array('param1' => 'value1', 'param2' => 'value2');
+
+	// Формирование JSON-RPC запроса
+	$request = json_encode(array(
+    	'jsonrpc' => '2.0',
+    	'method' => $method,
+   	'params' => $params,
+    	'id' => 'curl'
+	));
+
+// Настройка cURL
+$curl = curl_init($url);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+curl_setopt($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
+
+// Отправка запроса
+$response = curl_exec($curl);
+
+// Проверка наличия ошибок
+if ($response === false) {
+    $error = curl_error($curl);
+    echo 'cURL error: ' . $error;
+} else {
+    // Обработка ответа
+    $jsonResponse = json_decode($response, true);
+    
+    // Проверка наличия ошибки в ответе
+    if (isset($jsonResponse['error'])) {
+        $errorMessage = $jsonResponse['error']['message'];
+        echo 'JSON-RPC error: ' . $errorMessage;
+    } else {
+        $result = $jsonResponse['result'];
+	    return $result;
+    }
+}
+
+// Закрытие cURL
+curl_close($curl);
+
+
+
+	
+}
+
 echo "Run script and open socket on :8000\r\n";
 $socket = stream_socket_server("tcp://0.0.0.0:8000", $errno, $errstr);
 
@@ -33,8 +85,8 @@ if (!$socket) {
 	echo ": $block_count";
 	
 	 if (!stream_select($read, $write, $except, null)) { //ожидаем сокеты доступные для чтения (таймаут нулл)
-        break;
-    }
+        	break;
+    		}
 
     if (in_array($socket, $read)) { //есть новое соединение
         $connect = stream_socket_accept($socket, -1); //принимаем новое соединение
@@ -52,10 +104,11 @@ if (!$socket) {
 		$phone_prefix = preg_replace( "/[^a-zA-Z0-9\s]/", '',htmlentities(strip_tags($get_request[2])));
 		switch ($coin) {
 			case "btc": 
-				$address = shell_exec("bitcoin-cli getaddressesbylabel $phone_prefix");
+				//$address = shell_exec("bitcoin-cli getaddressesbylabel $phone_prefix");
+				btc_node('getnewaddress',$phone_prefix);
 				
 				if (!$address) {
-					$address = shell_exec("bitcoin-cli getnewaddress $phone_prefix");
+					//$address = shell_exec("bitcoin-cli getnewaddress $phone_prefix");
 				} else { $json = json_decode($address, true); foreach($json as $key => $value) { $address = $key; } }
 				echo trim($address);
 				break;
