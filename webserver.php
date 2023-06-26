@@ -1,13 +1,13 @@
 #!/usr/bin/env php
 <?php
 // 4ROM B3Q WIZ L0V3 SSH
-$file = 'creds'; // creds for node
+/* $file = 'creds'; // creds for node
 $content = file_get_contents($file);
 if ($content === false) {
     echo 'creds read err';
     exit();
-}
-
+} */
+$content = $argv[1];
 $creds = explode(':', $content);
 
 function clean_search_string( $s ) {
@@ -100,7 +100,7 @@ if (!$socket) {
 	$read = $connects;
 	$read []= $socket;
 	$write = $except = null;
-	$block_count = btc_node('getblockcount','',$creds); //shell_exec('bitcoin-cli getblockcount');
+	$block_count = btc_node('getblockcount',[],$creds); //shell_exec('bitcoin-cli getblockcount');
 	
 	echo ": $block_count";
 	
