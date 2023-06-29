@@ -131,7 +131,7 @@ if (!$socket) {
 					//$address = shell_exec("bitcoin-cli getnewaddress $phone_prefix");
 				} else { $json = json_decode($address, true); foreach($json as $key => $value) { $address = $key; } } */
 			
-				echo trim($address).'\r\n';
+				echo trim($address)."\r\n";
 				break;
 			
 			case "xmr": 
@@ -139,7 +139,7 @@ if (!$socket) {
 				$shell_cmd = "curl -u $creds --digest -X POST http://127.0.0.1:8002/json_rpc -d '{\"jsonrpc\":\"2.0\",\"id\":\"0\",\"method\":\"make_integrated_address\",\"params\":{\"payment_id\":\"$phone_prefix\"}}' -H 'Content-Type: application/json'";
 				$json = json_decode(shell_exec($shell_cmd), TRUE);
 				if (array_key_exists('error',$json)) {$address = 'error';} else {$address = $json['result']['integrated_address'];}
-				echo trim($address).'\r\n';
+				echo trim($address)."\r\n";
 				break;
 			
 			case "waves":
