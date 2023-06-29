@@ -102,7 +102,7 @@ if (!$socket) {
 	$write = $except = null;
 	$block_count = btc_node('getblockcount',[],$creds); //shell_exec('bitcoin-cli getblockcount');
 	
-	echo ": $block_count";
+	echo "Block count: $block_count \r\n";
 	
 	 if (!stream_select($read, $write, $except, null)) { //ожидаем сокеты доступные для чтения (таймаут нулл)
         	break;
