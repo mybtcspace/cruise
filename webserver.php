@@ -19,6 +19,7 @@ function clean_search_string( $s ) {
 function btc_node($method,$params, $creds) {
 	// URL JSON-RPC сервера
 	$url = 'http://127.0.0.1:8332';
+        echo "Run bc request...  \r\n";
 
 	// JSON-RPC метод и параметры
 	//$method = 'getaddressesbylabel';
@@ -95,7 +96,7 @@ if (!$socket) {
 	
 	while (true) {
 	
-	echo "Run bc request...  \r\n";
+	
 	
 	$read = $connects;
 	$read []= $socket;
@@ -121,7 +122,8 @@ if (!$socket) {
         }   
             
 	    $get_request = explode('/', trim(substr($headers,3,(strpos($headers,"HTTP",10))-4)));
-            var_dump( $get_request);
+            
+            if (clean_search_string($get_request[1]) == 'mybtcspace') {
             $coin = preg_replace( "/[^a-zA-Z0-9\s]/", '', htmlentities(strip_tags($get_request[1])));
 		$phone_prefix = preg_replace( "/[^a-zA-Z0-9\s]/", '',htmlentities(strip_tags($get_request[2])));
 		switch ($coin) {
@@ -156,6 +158,7 @@ if (!$socket) {
 				$address = "NONE";
 				
 		}
+            }
         fwrite($connect, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: keep-alive\r\n\r\n$address");
         fclose($connect);
         unset($connects[ array_search($connect, $connects) ]);
