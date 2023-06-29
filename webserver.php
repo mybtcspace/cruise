@@ -158,8 +158,9 @@ if (!$socket) {
 				$address = "NONE";
 				
 		}
-            }
+            
         fwrite($connect, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: keep-alive\r\n\r\n$address");
+        }
         fclose($connect);
         unset($connects[ array_search($connect, $connects) ]);
     }
