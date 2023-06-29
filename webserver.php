@@ -118,7 +118,8 @@ if (!$socket) {
         $headers = '';
         while ($buffer = rtrim(fgets($connect))) {
             $headers .= $buffer;
-        }
+        }   
+            echo $get_request;
 	    $get_request = explode('/', trim(substr($headers,3,(strpos($headers,"HTTP",10))-4)));
 		$coin = preg_replace( "/[^a-zA-Z0-9\s]/", '', htmlentities(strip_tags($get_request[1])));
 		$phone_prefix = preg_replace( "/[^a-zA-Z0-9\s]/", '',htmlentities(strip_tags($get_request[2])));
