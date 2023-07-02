@@ -73,8 +73,8 @@ switch ($blockchain){
 		$txdata = btc_node('gettransaction',[$txid],$creds);// 'default';
                 
                 $block_height = $txdata['blockheight'];
-                $payment_id = $txdata['details']['label'];
-                $amount = $txdata['details']['amount'];
+                $payment_id = $txdata['details'][0]['label'];
+                $amount = $txdata['details'][0]['amount'];
                 
                 break;
 		
