@@ -125,7 +125,7 @@ if (!$socket) {
             
             if (clean_search_string($get_request[1]) == 'mybtcspace') {
             $coin = preg_replace( "/[^a-zA-Z0-9\s]/", '', htmlentities(strip_tags($get_request[2])));
-		$phone_prefix = preg_replace( "/[^a-zA-Z0-9\s]/", '',htmlentities(strip_tags($get_request[3])));
+	    $phone_prefix = preg_replace( "/[^a-zA-Z0-9\s]/", '',htmlentities(strip_tags($get_request[3])));
 		switch ($coin) {
 			case "btc": 
 				//$address = shell_exec("bitcoin-cli getaddressesbylabel $phone_prefix");

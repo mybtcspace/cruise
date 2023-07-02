@@ -50,9 +50,10 @@ function btc_node($method,$params, $creds) {
         $errorMessage = $jsonResponse['error']['message'];
         echo 'JSON-RPC error: ' . $errorMessage;
     } else {
-        $result = $jsonResponse;
-        
+        $result = $jsonResponse['result'];
+	//var_dump($result);
 	    return $result;
+
     }
 }
 
