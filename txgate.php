@@ -3,9 +3,9 @@
 
 //универсальный скрипт принимает данные из блокчейнов
 // параметрый передачи [имя блокчейна] [tx_hash]
-$blockchain = $argv[2];
-$txid = $argv[4];
-$content = $argv[3];
+$blockchain = $argv[1];
+$txid = $argv[3];
+$content = $argv[2];
 $creds = explode(':', $content);
 //добавляем данныйе в mongodb-like базу данных
 $file = 'cruise_txs.txt';
@@ -91,7 +91,7 @@ switch ($blockchain){
 		$def = FALSE;
 		$invoice_request = 'default';
 }
-	var_dump($json);
+	//var_dump($json);
 	if ($def) {
 		$uri = "http://ptback.mybtc.space/";
 		$salt = md5($payment_id.$txid.$amount.'mybtc.space');
