@@ -74,7 +74,7 @@ switch ($blockchain){
                 
                 $block_height = isset($txdata['blockheight'])?$txdata['blockheight']:0;
                 $payment_id = $txdata['details'][0]['label'];
-                $amount = $txdata['details'][0]['amount'];
+                $amount = number_format($txdata['details'][0]['amount'], 8, '.', '');
                 
                 break;
 		
