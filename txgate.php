@@ -3,18 +3,77 @@
 
 //универсальный скрипт принимает данные из блокчейнов
 // параметрый передачи [имя блокчейна] [tx_hash]
-$blockchain = $argv[1];
-$txid = $argv[2];
-
+$blockchain = $argv[2];
+$txid = $argv[4];
+$content = $argv[3];
+$creds = explode(':', $content);
 //добавляем данныйе в mongodb-like базу данных
-$file = '/home/cruise_txs.txt';
+$file = 'cruise_txs.txt';
 //свитчем выбираем апи работы с блокчейном
+
+function btc_node($method,$params, $creds) {
+	
+	$url = 'http://127.0.0.1:8332';
+        echo "Run bc request...  \r\n";
+	$request = json_encode(array(
+            'jsonrpc' => '2.0',
+            'method' => $method,
+            'params' => $params,
+            'id' => 'curl'
+                                    )
+                    );
+
+         $curl = curl_init($url);
+            $options = array(
+            CURLOPT_HTTPAUTH       => CURLAUTH_BASIC,
+            CURLOPT_USERPWD        => $creds[0] . ':' . $creds[1],
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_MAXREDIRS      => 10,
+            CURLOPT_HTTPHEADER     => array('Content-type: application/json'),
+            CURLOPT_POST           => true,
+            CURLOPT_POSTFIELDS     => $request
+        );
+	curl_setopt_array($curl, $options);// Отправка запроса
+        $response = curl_exec($curl);
+
+// Проверка наличия ошибок
+        if ($response === false) {
+            $error = curl_error($curl);
+            echo 'cURL error: ' . $error;
+        } else {
+    // Обработка ответа
+        $jsonResponse = json_decode($response, true);
+    
+    // Проверка наличия ошибки в ответе
+    if (isset($jsonResponse['error'])) {
+        $errorMessage = $jsonResponse['error']['message'];
+        echo 'JSON-RPC error: ' . $errorMessage;
+    } else {
+        $result = $jsonResponse;
+	    return $result;
+    }
+}
+
+// Закрытие cURL
+curl_close($curl);
+
+
+
+	
+}
+
 switch ($blockchain){
 	
 	case 'btc':
-		$def = FALSE;
-		$invoice_request = 'default';
-		break;
+		$def = TRUE;
+                
+		$txdata = btc_node('gettransaction',[$txid],$creds);// 'default';
+                $block_height = $txdata['blockheight'];
+                $payment_id = $txdata['details']['label'];
+                $amount = $txdata['details']['amount'];
+                
+                break;
 		
 	case 'xmr':
 		$def = TRUE;
