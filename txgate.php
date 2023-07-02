@@ -51,7 +51,7 @@ function btc_node($method,$params, $creds) {
         echo 'JSON-RPC error: ' . $errorMessage;
     } else {
         $result = $jsonResponse['result'];
-	var_dump($result);
+	//var_dump($result);
 	    return $result;
 
     }
@@ -72,7 +72,7 @@ switch ($blockchain){
                 
 		$txdata = btc_node('gettransaction',[$txid],$creds);// 'default';
                 
-                $block_height = $txdata['blockheight'];
+                $block_height = isset($txdata['blockheight'])?$txdata['blockheight']:0;
                 $payment_id = $txdata['details'][0]['label'];
                 $amount = $txdata['details'][0]['amount'];
                 
