@@ -51,7 +51,7 @@ function btc_node($method,$params, $creds) {
         echo 'JSON-RPC error: ' . $errorMessage;
     } else {
         $result = $jsonResponse['result'];
-	//var_dump($result);
+	var_dump($result);
 	    return $result;
 
     }
@@ -101,7 +101,7 @@ switch ($blockchain){
 		$invoice_request = "invoices/approve/$blockchain/$payment_id/$txid/$amount/$block_height/$salt";
 		$shell_cmd = "curl -X GET --data key $uri.$invoice_request";
 		$curl_data = shell_exec($shell_cmd);
-		var_dump($curl_data);
+		//var_dump($curl_data);
 		}
 	file_put_contents($file,"\r\n$invoice_request\r\n",FILE_APPEND);
 	
